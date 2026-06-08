@@ -1,13 +1,26 @@
+# Virtual Environments
 venv/
 venv312/
 
+# Python Cache
 __pycache__/
-.ipynb_checkpoints/
-
 *.pyc
-*.pyo
 
-models/*.pt
-models/*.pth
+# Data
 data/raw/
 data/processed/
+
+# Model Files
+models/
+artifacts/model/
+
+*.pth
+*.pt
+*.pyo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
