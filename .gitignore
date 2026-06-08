@@ -17,6 +17,7 @@ artifacts/model/
 *.pth
 *.pt
 *.pyo
+*.pkl
 
 # Jupyter
 .ipynb_checkpoints/

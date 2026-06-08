@@ -1,22 +1,46 @@
+import os
 import pickle
 import torch
 
 from src.models.bilstm_attention import BiLSTMAttention
+from src.utils.download_model import download_model
 
 
 class BiLSTMPredictor:
 
     def __init__(self):
 
-        with open(
-            "../artifacts/vocab/vocab.pkl",
-            "rb"
-        ) as f:
+        ROOT_DIR = os.path.abspath(
+            os.path.join(
+                os.path.dirname(__file__),
+                "..",
+                ".."
+            )
+        )
 
+        VOCAB_PATH = os.path.join(
+            ROOT_DIR,
+            "artifacts",
+            "vocab",
+            "vocab.pkl"
+        )
+
+        if not os.path.exists(VOCAB_PATH):
+            raise FileNotFoundError(
+                f"Vocabulary file not found: {VOCAB_PATH}"
+            )
+
+        with open(VOCAB_PATH, "rb") as f:
             vocab = pickle.load(f)
 
         self.word_to_idx = vocab.word_to_idx
         self.idx_to_word = vocab.idx_to_word
+
+        print("Downloading model from Hugging Face...")
+
+        model_path = download_model()
+
+        print("Model downloaded successfully")
 
         self.model = BiLSTMAttention(
             vocab_size=len(self.word_to_idx)
@@ -24,7 +48,7 @@ class BiLSTMPredictor:
 
         self.model.load_state_dict(
             torch.load(
-                "../artifacts/model/bilstm_attention_model.pth",
+                model_path,
                 map_location="cpu"
             )
         )

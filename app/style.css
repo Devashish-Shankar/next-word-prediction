@@ -1,0 +1,13 @@
+.main {
+    padding-top: 2rem;
+}
+
+.stTextInput input {
+    font-size: 20px;
+}
+
+.prediction-box {
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px 0;
+}
